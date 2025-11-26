@@ -1,0 +1,216 @@
+USE [BasketballAcademyDB]
+GO
+
+/****** Object:  Table [dbo].[Attendance]    Script Date: 11/26/2025 9:58:36 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Attendance](
+	[AttendanceID] [int] NOT NULL,
+	[PlayerID] [int] NOT NULL,
+	[Date] [datetime] NOT NULL,
+	[Status] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_Attendance] PRIMARY KEY CLUSTERED 
+(
+	[AttendanceID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Attendance]  WITH CHECK ADD  CONSTRAINT [FK_Attendance_Players] FOREIGN KEY([PlayerID])
+REFERENCES [dbo].[Players] ([PlayerID])
+GO
+
+ALTER TABLE [dbo].[Attendance] CHECK CONSTRAINT [FK_Attendance_Players]
+GO
+
+USE [BasketballAcademyDB]
+GO
+
+/****** Object:  Table [dbo].[Messages]    Script Date: 11/26/2025 10:02:19 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Messages](
+	[MessageID] [nvarchar](50) NOT NULL,
+	[Subject] [nvarchar](50) NOT NULL,
+	[Content] [nvarchar](50) NOT NULL,
+	[SentDate] [datetime] NOT NULL,
+	[parentID] [int] NOT NULL,
+	[PlayerID] [int] NOT NULL,
+ CONSTRAINT [PK_Messages] PRIMARY KEY CLUSTERED 
+(
+	[MessageID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Messages] ADD  CONSTRAINT [DF_Messages_SentDate]  DEFAULT (getdate()) FOR [SentDate]
+GO
+
+ALTER TABLE [dbo].[Messages]  WITH CHECK ADD  CONSTRAINT [FK_Messages_Parents] FOREIGN KEY([parentID])
+REFERENCES [dbo].[Parents] ([ParentID])
+GO
+
+ALTER TABLE [dbo].[Messages] CHECK CONSTRAINT [FK_Messages_Parents]
+GO
+
+ALTER TABLE [dbo].[Messages]  WITH CHECK ADD  CONSTRAINT [FK_Messages_Players] FOREIGN KEY([PlayerID])
+REFERENCES [dbo].[Players] ([PlayerID])
+GO
+
+ALTER TABLE [dbo].[Messages] CHECK CONSTRAINT [FK_Messages_Players]
+GO
+
+USE [BasketballAcademyDB]
+GO
+
+/****** Object:  Table [dbo].[Parents]    Script Date: 11/26/2025 10:05:48 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Parents](
+	[ParentID] [int] IDENTITY(1,1) NOT NULL,
+	[FullName] [nvarchar](50) NOT NULL,
+	[Email] [nvarchar](50) NOT NULL,
+	[Phone] [nvarchar](50) NOT NULL,
+	[Password] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_Parents] PRIMARY KEY CLUSTERED 
+(
+	[ParentID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+USE [BasketballAcademyDB]
+GO
+
+/****** Object:  Table [dbo].[Payments]    Script Date: 11/26/2025 10:18:31 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Payments](
+	[PaymentID] [int] NOT NULL,
+	[PlayerID] [int] NOT NULL,
+	[AmountPaid] [float] NOT NULL,
+	[RemainingBalance] [float] NOT NULL,
+	[Date] [datetime] NOT NULL,
+	[ParentID] [int] NULL,
+ CONSTRAINT [PK_Payments] PRIMARY KEY CLUSTERED 
+(
+	[PaymentID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Payments]  WITH CHECK ADD  CONSTRAINT [FK_Payments_Parents] FOREIGN KEY([ParentID])
+REFERENCES [dbo].[Parents] ([ParentID])
+GO
+
+ALTER TABLE [dbo].[Payments] CHECK CONSTRAINT [FK_Payments_Parents]
+GO
+
+ALTER TABLE [dbo].[Payments]  WITH CHECK ADD  CONSTRAINT [FK_Payments_Players] FOREIGN KEY([PlayerID])
+REFERENCES [dbo].[Players] ([PlayerID])
+GO
+
+ALTER TABLE [dbo].[Payments] CHECK CONSTRAINT [FK_Payments_Players]
+GO
+
+
+USE [BasketballAcademyDB]
+GO
+
+/****** Object:  Table [dbo].[Parents]    Script Date: 11/26/2025 10:05:48 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Parents](
+	[ParentID] [int] IDENTITY(1,1) NOT NULL,
+	[FullName] [nvarchar](50) NOT NULL,
+	[Email] [nvarchar](50) NOT NULL,
+	[Phone] [nvarchar](50) NOT NULL,
+	[Password] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_Parents] PRIMARY KEY CLUSTERED 
+(
+	[ParentID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+USE [BasketballAcademyDB]
+GO
+
+/****** Object:  Table [dbo].[Performance]    Script Date: 11/26/2025 10:19:53 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Performance](
+	[PerformanceID] [int] NOT NULL,
+	[PlayerID] [int] NOT NULL,
+	[Notes] [nvarchar](50) NOT NULL,
+	[Date] [datetime] NOT NULL,
+ CONSTRAINT [PK_Performance] PRIMARY KEY CLUSTERED 
+(
+	[PerformanceID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Performance]  WITH CHECK ADD  CONSTRAINT [FK_Performance_Players] FOREIGN KEY([PlayerID])
+REFERENCES [dbo].[Players] ([PlayerID])
+GO
+
+ALTER TABLE [dbo].[Performance] CHECK CONSTRAINT [FK_Performance_Players]
+GO
+USE [BasketballAcademyDB]
+GO
+
+/****** Object:  Table [dbo].[Players]    Script Date: 11/26/2025 10:20:20 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Players](
+	[PlayerID] [int] NOT NULL,
+	[Name] [nvarchar](50) NOT NULL,
+	[Age] [int] NOT NULL,
+	[Position] [nvarchar](50) NOT NULL,
+	[ParentID] [int] NOT NULL,
+	[Photo] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_Players] PRIMARY KEY CLUSTERED 
+(
+	[PlayerID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Players]  WITH CHECK ADD  CONSTRAINT [FK_Players_Parents] FOREIGN KEY([PlayerID])
+REFERENCES [dbo].[Parents] ([ParentID])
+GO
+
+ALTER TABLE [dbo].[Players] CHECK CONSTRAINT [FK_Players_Parents]
+GO
+
+
+
