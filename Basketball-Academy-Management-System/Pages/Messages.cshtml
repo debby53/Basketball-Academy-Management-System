@@ -1,0 +1,111 @@
+﻿@page
+@model Basketball_Academy_Management_System.Pages.MessagesModel
+@{
+}
+
+<div class="container py-5">
+
+    <!-- Page Title -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold">Message Center</h2>
+        <p class="text-muted">View received messages and send new ones.</p>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.StatusMessage))
+    {
+        <div class="alert alert-info">@Model.StatusMessage</div>
+    }
+
+    <!-- RECEIVED MESSAGES -->
+    <div class="card mb-5">
+        <div class="card-header bg-primary text-white">
+            <strong>Received Messages</strong>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>From</th>
+                        <th>Role</th>
+                        <th>Subject</th>
+                        <th>Received</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.ReceivedMessages != null && Model.ReceivedMessages.Count > 0)
+                    {
+                        foreach (var m in Model.ReceivedMessages)
+                        {
+                            <tr>
+                                <td>@m.SenderEmail</td>
+                                <td>@m.SenderRole</td>
+                                <td>@m.Subject</td>
+                                <td>@m.SentDate.ToString("yyyy-MM-dd")</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center text-muted py-4">No messages</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+    <!-- SEND NEW MESSAGE FORM -->
+    <div class="card">
+        <div class="card-header bg-success text-white">
+            <strong>Send a Message</strong>
+        </div>
+
+        <div class="card-body">
+            <form method="post">
+
+                <!-- Recipient Type -->
+                <div class="mb-3">
+                    <label for="recipientType" class="form-label">Send To</label>
+                    <select id="recipientType" name="recipientType" class="form-select" required>
+                        <option value="" selected disabled>Select recipient type</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Coach">Coach</option>
+                        <option value="Parent">Parent</option>
+                    </select>
+                </div>
+
+                <!-- Subject -->
+                <div class="mb-3">
+                    <label for="subject" class="form-label">Subject</label>
+                    <input type="text"
+                           name="subject"
+                           class="form-control"
+                           id="subject"
+                           placeholder="Enter subject"
+                           required>
+                </div>
+
+                <!-- Message -->
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea id="message"
+                              name="message"
+                              class="form-control"
+                              rows="5"
+                              placeholder="Type your message..."
+                              required></textarea>
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="btn btn-success w-100">
+                    Send Message
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+</div>

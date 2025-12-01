@@ -1,0 +1,302 @@
+﻿@page
+@model Basketball_Academy_Management_System.Pages.AdminModel
+@{
+}
+
+<div class="container py-4 min-h-screen">
+
+    <h2 class="mb-4 fw-bold">Admin Dashboard</h2>
+
+    <!-- Tab Navigation -->
+    <ul class="nav nav-tabs" id="adminTabs" role="tablist">
+
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="users-tab" data-bs-toggle="tab" data-bs-target="#users"
+                    type="button" role="tab">
+                User Accounts
+            </button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="players-tab" data-bs-toggle="tab" data-bs-target="#players"
+                    type="button" role="tab">
+                Players
+            </button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="payments-tab" data-bs-toggle="tab" data-bs-target="#payments"
+                    type="button" role="tab">
+                Payments
+            </button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="reports-tab" data-bs-toggle="tab" data-bs-target="#reports"
+                    type="button" role="tab">
+                Reports
+            </button>
+        </li>
+
+    </ul>
+
+
+    <!-- Tab Content -->
+    <div class="tab-content border border-top-0 p-4 bg-white" id="adminTabsContent">
+
+        <!-- USERS TAB -->
+        <div class="tab-pane fade show active" id="users" role="tabpanel">
+
+            <h4 class="mb-3">Manage User Accounts</h4>
+
+            <!-- Add User Form -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">Create / Update User</div>
+                <div class="card-body">
+
+                    <form method="post" asp-page-handler="SaveUser">
+                        <div class="row g-3">
+
+                            <div class="col-md-6">
+                                <label class="form-label">Email</label>
+                                <input asp-for="FormEmail" name="Email" class="form-control" placeholder="user@example.com" required />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Role</label>
+                                <select asp-for="FormRole" name="Role" class="form-select" required>
+                                    <option disabled selected>Select role</option>
+                                    <option>Admin</option>
+                                    <option>Coach</option>
+                                    <option>Parent</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Password</label>
+                                <input asp-for="FormPassword" name="Password" type="password" class="form-control" placeholder="******" />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Full Name</label>
+                                <input asp-for="FormFullname" name="Fullname" class="form-control" placeholder="User" />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Phone</label>
+                                <input asp-for="FormPhone" name="Phone" class="form-control" placeholder="07-" />
+                            </div>
+
+                        </div>
+
+                        <input type="hidden" asp-for="OriginalEmail" name="OriginalEmail" />
+
+                        <button type="submit" class="btn btn-success mt-3">Save User</button>
+                    </form>
+
+                </div>
+            </div>
+
+            <!-- User List -->
+            <h5>User Accounts</h5>
+            <table class="table table-striped table-hover mt-3">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var u in Model.Users)
+                    {
+                        <tr>
+                            <td>@u.Email</td>
+                            <td>@u.Role</td>
+                            <td>
+                                <form method="post" class="d-inline" asp-page-handler="EditUser">
+                                    <input type="hidden" name="Email" value="@u.Email" />
+                                    <button class="btn btn-sm btn-warning" type="submit">Edit</button>
+                                </form>
+                                <form method="post" class="d-inline" asp-page-handler="DeleteUser" onsubmit="return confirm('Delete user?');">
+                                    <input type="hidden" name="Email" value="@u.Email" />
+                                    <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+
+
+
+        <!-- PLAYERS TAB -->
+        <div class="tab-pane fade" id="players" role="tabpanel">
+
+            <h4 class="mb-3">Manage Players</h4>
+
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">Add / Edit Player</div>
+
+                <div class="card-body">
+
+                    <form method="post" asp-page-handler="SavePlayer" class="row g-3">
+
+                        <input type="hidden" name="Id" value="@Model.PlayerId" />
+
+                        <div class="col-md-6">
+                            <label class="form-label">Player Name</label>
+                            <input asp-for="PlayerName" name="Name" class="form-control" placeholder="Player full name" required />
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label">Age</label>
+                            <input asp-for="PlayerAge" name="Age" type="number" class="form-control" min="5" max="18" required />
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label">Team</label>
+                            <input asp-for="PlayerTeam" name="Team" class="form-control" placeholder="Team name" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Parent Email</label>
+                            <input asp-for="PlayerParentEmail" name="ParentEmail" type="email" class="form-control" placeholder="parent@example.com" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Photo URL</label>
+                            <input asp-for="PlayerPhoto" name="Photo" class="form-control" placeholder="/images/player.jpg" />
+                        </div>
+
+                        <div class="col-12">
+                            <button class="btn btn-success">Save Player</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+            <h5>Player List</h5>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Team</th>
+                        <th>Parent Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var p in Model.Players)
+                    {
+                        <tr>
+                            <td>@p.Name</td>
+                            <td>@p.Age</td>
+                            <td>@p.Position</td>
+                            <td>
+                                <form method="post" class="d-inline" asp-page-handler="EditPlayer">
+                                    <input type="hidden" name="Id" value="@p.Id" />
+                                    <button class="btn btn-sm btn-warning" type="submit">Edit</button>
+                                </form>
+                                <form method="post" class="d-inline" asp-page-handler="DeletePlayer" onsubmit="return confirm('Delete player?');">
+                                    <input type="hidden" name="Id" value="@p.Id" />
+                                    <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+
+
+
+        <!-- PAYMENTS TAB -->
+        <div class="tab-pane fade" id="payments" role="tabpanel">
+
+            <h4 class="mb-3">Payments</h4>
+
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>Player</th>
+                        <th>Parent Email</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var pay in Model.Payments)
+                    {
+                        <tr>
+                            <td>@pay.PlayerName</td>
+                            <td>RWF @pay.Amount</td>
+                            <td><span class="badge bg-success">Paid</span></td>
+                            <td>@pay.Date.ToString("yyyy-MM-dd")</td>
+                            <td>
+                                <form method="post" class="d-inline" asp-page-handler="EditPayment">
+                                    <input type="hidden" name="Date" value="@pay.Date.ToString("o")" />
+                                    <button class="btn btn-sm btn-warning" type="submit">Edit</button>
+                                </form>
+                                <form method="post" class="d-inline" asp-page-handler="DeletePayment" onsubmit="return confirm('Delete payment?');">
+                                    <input type="hidden" name="Date" value="@pay.Date.ToString("o")" />
+                                    <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+
+        <!-- REPORTS TAB -->
+        <div class="tab-pane fade" id="reports" role="tabpanel">
+
+            <h4 class="mb-3">Reports</h4>
+
+            <p>Select a report to generate:</p>
+
+            <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Player Registration Report
+                    <form method="post" asp-page-handler="GenerateReport">
+                        <input type="hidden" name="ReportType" value="PlayerRegistration" />
+                        <button class="btn btn-primary btn-sm">Generate</button>
+                    </form>
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Payment Summary Report
+                    <form method="post" asp-page-handler="GenerateReport">
+                        <input type="hidden" name="ReportType" value="PaymentSummary" />
+                        <button class="btn btn-primary btn-sm">Generate</button>
+                    </form>
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Attendance Report
+                    <form method="post" asp-page-handler="GenerateReport">
+                        <input type="hidden" name="ReportType" value="Attendance" />
+                        <button class="btn btn-primary btn-sm">Generate</button>
+                    </form>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>

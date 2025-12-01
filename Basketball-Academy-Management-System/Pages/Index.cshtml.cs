@@ -1,9 +1,10 @@
+using Basketball_Academy_Management_System.Pages.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Basketball_Academy_Management_System.Pages
 {
-    public class IndexModel : PageModel
+    public class IndexModel : ProtectedPageModel
     {
         private readonly ILogger<IndexModel> _logger;
 
@@ -14,7 +15,6 @@ namespace Basketball_Academy_Management_System.Pages
 
         public void OnGet()
         {
-
         }
     }
 }
