@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Basketball_Academy_Management_System.Pages.Shared;
+using System.Linq.Expressions;
 
 namespace Basketball_Academy_Management_System.Pages
 {
@@ -38,6 +39,31 @@ namespace Basketball_Academy_Management_System.Pages
                 ErrorMessage = "User not logged in.";
                 return;
             }
+            int userId;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string qGetId = "SELECT UserID FROM Users WHERE Email = @Email";
+                    using (SqlCommand cmd = new SqlCommand(qGetId, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Email", email);
+                        var idObj = cmd.ExecuteScalar();
+                        if (idObj == null || idObj == DBNull.Value)
+                        {
+                            // User not found
+                            ErrorMessage = "User account not found.";
+                            return;
+                        }
+                        userId = Convert.ToInt32(idObj);
+
+                    }
+                }
+            } catch (Exception e) {
+                ErrorMessage = "Error, could not find user Id: " + e.Message;
+                return;
+            }
 
             try
             {
@@ -46,10 +72,11 @@ namespace Basketball_Academy_Management_System.Pages
                     conn.Open();
 
                     // Try to find player by parent email
-                    string qPlayerByParent = "SELECT TOP 1 PlayerID, Name, Age, Position, Photo, ParentID FROM Players WHERE ParentEmail = @Email";
+
+                    string qPlayerByParent = "SELECT TOP 1 PlayerID, Name, Age, Position, Photo, ParentID FROM Players WHERE ParentID = @ID";
                     using (SqlCommand cmd = new SqlCommand(qPlayerByParent, conn))
                     {
-                        cmd.Parameters.AddWithValue("@Email", email);
+                        cmd.Parameters.AddWithValue("@Id", userId);
                         using (var reader = cmd.ExecuteReader())
                         {
                             if (reader.Read())
@@ -91,7 +118,7 @@ namespace Basketball_Academy_Management_System.Pages
                         }
 
                         // Load payments
-                        string qPayments = "SELECT Date, Amount, Notes, (SELECT Name FROM Players WHERE PlayerID = Payments.PlayerID) as PlayerName, (SELECT ParentID FROM Players WHERE Id = Payments.PlayerID) as ParentID FROM Payments WHERE PlayerID = @PlayerId ORDER BY Date DESC";
+                        string qPayments = "SELECT Date, Amount, Notes, (SELECT Name FROM Players WHERE PlayerID = Payments.PlayerID) as PlayerName, (SELECT ParentID FROM Players WHERE PlayerID = Payments.PlayerID) as ParentID FROM Payments WHERE PlayerID = @PlayerId ORDER BY Date DESC";
                         using (SqlCommand cmd = new SqlCommand(qPayments, conn))
                         {
                             cmd.Parameters.AddWithValue("@PlayerId", CurrentPlayer.Id);
