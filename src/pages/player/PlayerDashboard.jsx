@@ -4,22 +4,23 @@ import Card from '../../components/ui/Card';
 import '../admin/Dashboard.css';
 
 const PlayerDashboard = () => {
+    // TODO: Fetch player stats from API
     const stats = [
         {
             title: 'Attendance Rate',
-            value: '94%',
+            value: '0%',
             icon: <ClipboardList size={24} />,
             color: 'success'
         },
         {
             title: 'Training Sessions',
-            value: '48',
+            value: '0',
             icon: <Calendar size={24} />,
             color: 'primary'
         },
         {
             title: 'Performance',
-            value: 'Excellent',
+            value: 'N/A',
             icon: <TrendingUp size={24} />,
             color: 'secondary'
         }
@@ -51,35 +52,19 @@ const PlayerDashboard = () => {
             <div className="dashboard-grid">
                 <Card title="Recent Feedback">
                     <div className="activity-list">
-                        <div className="activity-item">
-                            <div className="activity-content">
-                                <p className="activity-text">Great improvement in ball handling!</p>
-                                <p className="activity-time">Coach Mike • 2 days ago</p>
-                            </div>
-                        </div>
-                        <div className="activity-item">
-                            <div className="activity-content">
-                                <p className="activity-text">Excellent teamwork during practice</p>
-                                <p className="activity-time">Coach Sarah • 1 week ago</p>
-                            </div>
-                        </div>
+                        {/* TODO: Fetch recent feedback from API */}
+                        <p style={{ color: 'var(--text-secondary)', textAlign: 'center', padding: 'var(--space-4)' }}>
+                            No recent feedback. Data will load from backend.
+                        </p>
                     </div>
                 </Card>
 
                 <Card title="Upcoming Sessions">
                     <div className="activity-list">
-                        <div className="activity-item">
-                            <div className="activity-content">
-                                <p className="activity-text">Basketball Practice</p>
-                                <p className="activity-time">Tomorrow at 3:00 PM</p>
-                            </div>
-                        </div>
-                        <div className="activity-item">
-                            <div className="activity-content">
-                                <p className="activity-text">Team Scrimmage</p>
-                                <p className="activity-time">Friday at 4:00 PM</p>
-                            </div>
-                        </div>
+                        {/* TODO: Fetch upcoming sessions from API */}
+                        <p style={{ color: 'var(--text-secondary)', textAlign: 'center', padding: 'var(--space-4)' }}>
+                            No upcoming sessions. Data will load from backend.
+                        </p>
                     </div>
                 </Card>
             </div>

@@ -4,22 +4,23 @@ import Card from '../../components/ui/Card';
 import '../admin/Dashboard.css';
 
 const CoachDashboard = () => {
+    // TODO: Fetch coach stats from API
     const stats = [
         {
             title: 'My Players',
-            value: '32',
+            value: '0',
             icon: <Users size={24} />,
             color: 'primary'
         },
         {
             title: 'Today\'s Sessions',
-            value: '3',
+            value: '0',
             icon: <ClipboardList size={24} />,
             color: 'secondary'
         },
         {
             title: 'Avg Attendance',
-            value: '89%',
+            value: '0%',
             icon: <TrendingUp size={24} />,
             color: 'success'
         }
@@ -51,18 +52,10 @@ const CoachDashboard = () => {
             <div className="dashboard-grid">
                 <Card title="Today's Sessions">
                     <div className="activity-list">
-                        <div className="activity-item">
-                            <div className="activity-content">
-                                <p className="activity-text"><strong>U12 Basketball</strong> - 3:00 PM</p>
-                                <p className="activity-time">Court A • 16 players</p>
-                            </div>
-                        </div>
-                        <div className="activity-item">
-                            <div className="activity-content">
-                                <p className="activity-text"><strong>U14 Football</strong> - 5:00 PM</p>
-                                <p className="activity-time">Field 2 • 22 players</p>
-                            </div>
-                        </div>
+                        {/* TODO: Fetch today's sessions from API */}
+                        <p style={{ color: 'var(--text-secondary)', textAlign: 'center', padding: 'var(--space-4)' }}>
+                            No sessions scheduled. Data will load from backend.
+                        </p>
                     </div>
                 </Card>
 

@@ -17,12 +17,8 @@ const UserManagement = () => {
         phone: ''
     });
 
-    // Mock pending users
-    const [pendingUsers] = useState([
-        { id: 1, name: 'John Smith', email: 'john.smith@example.com', role: 'Coach', date: '2024-12-10' },
-        { id: 2, name: 'Sarah Johnson', email: 'sarah.j@example.com', role: 'Parent', date: '2024-12-11' },
-        { id: 3, name: 'Mike Davis', email: 'mike.d@example.com', role: 'Player', date: '2024-12-12' }
-    ]);
+    // TODO: Fetch pending users from API
+    const [pendingUsers] = useState([]);
 
     const handleApprove = (userId) => {
         alert(`✅ User approved! They will receive an email notification.`);

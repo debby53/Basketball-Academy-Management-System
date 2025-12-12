@@ -4,22 +4,23 @@ import Card from '../../components/ui/Card';
 import '../admin/Dashboard.css';
 
 const ParentDashboard = () => {
+    // TODO: Fetch parent stats from API
     const stats = [
         {
             title: 'My Children',
-            value: '2',
+            value: '0',
             icon: <User size={24} />,
             color: 'primary'
         },
         {
             title: 'Attendance Rate',
-            value: '92%',
+            value: '0%',
             icon: <ClipboardList size={24} />,
             color: 'success'
         },
         {
             title: 'Balance Due',
-            value: '$150',
+            value: '$0',
             icon: <DollarSign size={24} />,
             color: 'warning'
         }
@@ -51,29 +52,19 @@ const ParentDashboard = () => {
             <div className="dashboard-grid">
                 <Card title="Recent Updates">
                     <div className="activity-list">
-                        <div className="activity-item">
-                            <div className="activity-content">
-                                <p className="activity-text"><strong>Emma</strong> attended Basketball practice</p>
-                                <p className="activity-time">Today at 3:00 PM</p>
-                            </div>
-                        </div>
-                        <div className="activity-item">
-                            <div className="activity-content">
-                                <p className="activity-text"><strong>Jake</strong> received positive feedback</p>
-                                <p className="activity-time">Yesterday</p>
-                            </div>
-                        </div>
+                        {/* TODO: Fetch recent updates from API */}
+                        <p style={{ color: 'var(--text-secondary)', textAlign: 'center', padding: 'var(--space-4)' }}>
+                            No recent updates. Data will load from backend.
+                        </p>
                     </div>
                 </Card>
 
                 <Card title="Upcoming Sessions">
                     <div className="activity-list">
-                        <div className="activity-item">
-                            <div className="activity-content">
-                                <p className="activity-text">Basketball - Emma</p>
-                                <p className="activity-time">Tomorrow at 3:00 PM</p>
-                            </div>
-                        </div>
+                        {/* TODO: Fetch upcoming sessions from API */}
+                        <p style={{ color: 'var(--text-secondary)', textAlign: 'center', padding: 'var(--space-4)' }}>
+                            No upcoming sessions. Data will load from backend.
+                        </p>
                     </div>
                 </Card>
             </div>

@@ -1,35 +1,42 @@
 import { Users, UserCheck, DollarSign, TrendingUp } from 'lucide-react';
+import { useState } from 'react'; // Added useState import
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import Card from '../../components/ui/Card';
+import LoadingSpinner from '../../components/ui/LoadingSpinner';
 import './Dashboard.css';
 
 const AdminDashboard = () => {
+    // TODO: Fetch stats from API
+    // const [stats, setStats] = useState([]);
+    // const [loading, setLoading] = useState(true);
+
+    // Example stats structure - replace with API call
     const stats = [
         {
             title: 'Total Players',
-            value: '248',
-            change: '+12%',
+            value: '0',
+            change: '+0%',
             icon: <Users size={24} />,
             color: 'primary'
         },
         {
             title: 'Active Coaches',
-            value: '18',
-            change: '+2',
+            value: '0',
+            change: '+0',
             icon: <UserCheck size={24} />,
             color: 'secondary'
         },
         {
             title: 'Monthly Revenue',
-            value: '$24,500',
-            change: '+8%',
+            value: '$0',
+            change: '+0%',
             icon: <DollarSign size={24} />,
             color: 'success'
         },
         {
             title: 'Attendance Rate',
-            value: '87%',
-            change: '+3%',
+            value: '0%',
+            change: '+0%',
             icon: <TrendingUp size={24} />,
             color: 'info'
         }
@@ -62,27 +69,10 @@ const AdminDashboard = () => {
             <div className="dashboard-grid">
                 <Card title="Recent Activity" className="activity-card">
                     <div className="activity-list">
-                        <div className="activity-item">
-                            <div className="activity-dot"></div>
-                            <div className="activity-content">
-                                <p className="activity-text">New player registered: <strong>John Smith</strong></p>
-                                <p className="activity-time">2 hours ago</p>
-                            </div>
-                        </div>
-                        <div className="activity-item">
-                            <div className="activity-dot"></div>
-                            <div className="activity-content">
-                                <p className="activity-text">Payment received from <strong>Sarah Johnson</strong></p>
-                                <p className="activity-time">5 hours ago</p>
-                            </div>
-                        </div>
-                        <div className="activity-item">
-                            <div className="activity-dot"></div>
-                            <div className="activity-content">
-                                <p className="activity-text">Coach <strong>Mike Davis</strong> marked attendance</p>
-                                <p className="activity-time">1 day ago</p>
-                            </div>
-                        </div>
+                        {/* TODO: Fetch recent activity from API */}
+                        <p style={{ color: 'var(--text-secondary)', textAlign: 'center', padding: 'var(--space-4)' }}>
+                            No recent activity. Data will load from backend.
+                        </p>
                     </div>
                 </Card>
 
