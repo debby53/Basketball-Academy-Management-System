@@ -81,7 +81,15 @@ export const API_ENDPOINTS = {
 
     // Analytics (Admin)
     ANALYTICS: '/analytics',
-    REPORTS: '/reports'
+    REPORTS: '/reports',
+    DASHBOARD_STATS: '/dashboard/stats',
+    RECENT_ACTIVITY: '/dashboard/activity',
+    REVENUE_DATA: '/reports/revenue',
+    ATTENDANCE_STATS: '/reports/attendance',
+
+    // Notifications
+    NOTIFICATIONS: '/notifications',
+    NOTIFICATIONS_MARK_READ: '/notifications/mark-read'
 };
 
 // Local Storage Keys

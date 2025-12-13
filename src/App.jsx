@@ -11,6 +11,12 @@ import ForgotPassword from './pages/auth/ForgotPassword';
 // Admin Pages
 import AdminDashboard from './pages/admin/AdminDashboard';
 import UserManagement from './pages/admin/UserManagement';
+import PlayersManagement from './pages/admin/PlayersManagement';
+import CoachesManagement from './pages/admin/CoachesManagement';
+import ParentsManagement from './pages/admin/ParentsManagement';
+import PaymentsManagement from './pages/admin/PaymentsManagement';
+import CommunicationManagement from './pages/admin/CommunicationManagement';
+import ReportsManagement from './pages/admin/ReportsManagement';
 
 // Coach Pages
 import CoachDashboard from './pages/coach/CoachDashboard';
@@ -45,6 +51,54 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
                 <UserManagement />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/players"
+            element={
+              <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
+                <PlayersManagement />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/coaches"
+            element={
+              <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
+                <CoachesManagement />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/parents"
+            element={
+              <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
+                <ParentsManagement />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/payments"
+            element={
+              <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
+                <PaymentsManagement />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/communications"
+            element={
+              <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
+                <CommunicationManagement />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/reports"
+            element={
+              <ProtectedRoute allowedRoles={[ROLES.ADMIN]}>
+                <ReportsManagement />
               </ProtectedRoute>
             }
           />

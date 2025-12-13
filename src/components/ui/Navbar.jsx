@@ -1,7 +1,9 @@
-import { Bell, User, ChevronDown } from 'lucide-react';
+import { User, ChevronDown } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import { getInitials } from '../../utils/formatters';
 import './Navbar.css';
+
+import NotificationPopover from './NotificationPopover';
 
 const Navbar = () => {
     const { user } = useAuth();
@@ -15,10 +17,7 @@ const Navbar = () => {
                 </div>
 
                 <div className="navbar-actions">
-                    <button className="navbar-icon-btn">
-                        <Bell size={20} />
-                        <span className="navbar-badge">3</span>
-                    </button>
+                    <NotificationPopover />
 
                     <div className="navbar-user">
                         <div className="navbar-avatar">
