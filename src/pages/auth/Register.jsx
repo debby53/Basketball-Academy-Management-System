@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Mail, Lock, User, Phone, UserCheck, Users, Trophy } from 'lucide-react';
 import { register as registerService } from '../../services/authService';
 import { useAuth } from '../../hooks/useAuth';
-import { ROLES } from '../../utils/constants';
+import { ROLES, STORAGE_KEYS } from '../../utils/constants';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
 import Alert from '../../components/ui/Alert';
@@ -84,16 +84,30 @@ const Register = () => {
         setLoading(true);
 
         try {
-            // In demo mode, show success message
-            setError('');
+            // Call register service
+            const payload = {
+                email: formData.email,
+                password: formData.password,
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                role: formData.role,
+                phone: formData.phone
+            };
 
-            // Show success alert
+            await registerService(payload);
+
+            // Clear any tokens stored by register (we don't auto-login before admin approval)
+            localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
+            localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
+            localStorage.removeItem(STORAGE_KEYS.USER_INFO);
+
+            // Show success and redirect to login
             alert('✅ Registration Successful!\n\nYour account has been created and is pending admin approval. You will be notified once approved.');
-
-            // Redirect to login
             navigate('/login');
         } catch (err) {
-            setError(err.message || 'Registration failed. Please try again.');
+            // apiClient rejects with an object that may contain message
+            const msg = err?.message || err?.data?.message || String(err) || 'Registration failed. Please try again.';
+            setError(msg);
         } finally {
             setLoading(false);
         }
