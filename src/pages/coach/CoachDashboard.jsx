@@ -1,9 +1,12 @@
 import { ClipboardList, Users, TrendingUp } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import Card from '../../components/ui/Card';
 import '../admin/Dashboard.css';
 
 const CoachDashboard = () => {
+    const navigate = useNavigate();
+
     // TODO: Fetch coach stats from API
     const stats = [
         {
@@ -61,11 +64,11 @@ const CoachDashboard = () => {
 
                 <Card title="Quick Actions">
                     <div className="quick-actions">
-                        <button className="action-btn">
+                        <button className="action-btn" onClick={() => navigate('/coach/attendance')}>
                             <ClipboardList size={20} />
                             <span>Mark Attendance</span>
                         </button>
-                        <button className="action-btn">
+                        <button className="action-btn" onClick={() => navigate('/coach/performance')}>
                             <TrendingUp size={20} />
                             <span>Log Performance</span>
                         </button>

@@ -55,8 +55,6 @@ const Login = () => {
         }
     };
 
-
-
     return (
         <div className="auth-container">
             <div className="auth-card">
@@ -108,8 +106,6 @@ const Login = () => {
                     >
                         Sign In
                     </Button>
-
-
                 </form>
 
                 <div className="auth-footer">

@@ -20,12 +20,24 @@ import ReportsManagement from './pages/admin/ReportsManagement';
 
 // Coach Pages
 import CoachDashboard from './pages/coach/CoachDashboard';
+import CoachAttendance from './pages/coach/CoachAttendance';
+import CoachRoster from './pages/coach/CoachRoster';
+import CoachPerformance from './pages/coach/CoachPerformance';
+import CoachSchedule from './pages/coach/CoachSchedule';
 
 // Parent Pages
 import ParentDashboard from './pages/parent/ParentDashboard';
+import ParentAttendance from './pages/parent/ParentAttendance';
+import ParentProgress from './pages/parent/ParentProgress';
+import ParentPayments from './pages/parent/ParentPayments';
+import ParentAnnouncements from './pages/parent/ParentAnnouncements';
+import ParentSchedule from './pages/parent/ParentSchedule';
 
 // Player Pages
 import PlayerDashboard from './pages/player/PlayerDashboard';
+import PlayerAttendance from './pages/player/PlayerAttendance';
+import PlayerProgress from './pages/player/PlayerProgress';
+import PlayerSchedule from './pages/player/PlayerSchedule';
 
 function App() {
   return (
@@ -112,6 +124,38 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/coach/attendance"
+            element={
+              <ProtectedRoute allowedRoles={[ROLES.COACH]}>
+                <CoachAttendance />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/coach/roster"
+            element={
+              <ProtectedRoute allowedRoles={[ROLES.COACH]}>
+                <CoachRoster />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/coach/performance"
+            element={
+              <ProtectedRoute allowedRoles={[ROLES.COACH]}>
+                <CoachPerformance />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/coach/schedule"
+            element={
+              <ProtectedRoute allowedRoles={[ROLES.COACH]}>
+                <CoachSchedule />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Parent Routes */}
           <Route
@@ -122,6 +166,46 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/parent/attendance"
+            element={
+              <ProtectedRoute allowedRoles={[ROLES.PARENT]}>
+                <ParentAttendance />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/parent/progress"
+            element={
+              <ProtectedRoute allowedRoles={[ROLES.PARENT]}>
+                <ParentProgress />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/parent/payments"
+            element={
+              <ProtectedRoute allowedRoles={[ROLES.PARENT]}>
+                <ParentPayments />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/parent/announcements"
+            element={
+              <ProtectedRoute allowedRoles={[ROLES.PARENT]}>
+                <ParentAnnouncements />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/parent/schedule"
+            element={
+              <ProtectedRoute allowedRoles={[ROLES.PARENT]}>
+                <ParentSchedule />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Player Routes */}
           <Route
@@ -129,6 +213,30 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={[ROLES.PLAYER]}>
                 <PlayerDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/player/attendance"
+            element={
+              <ProtectedRoute allowedRoles={[ROLES.PLAYER]}>
+                <PlayerAttendance />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/player/progress"
+            element={
+              <ProtectedRoute allowedRoles={[ROLES.PLAYER]}>
+                <PlayerProgress />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/player/schedule"
+            element={
+              <ProtectedRoute allowedRoles={[ROLES.PLAYER]}>
+                <PlayerSchedule />
               </ProtectedRoute>
             }
           />
