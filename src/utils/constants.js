@@ -89,7 +89,12 @@ export const API_ENDPOINTS = {
 
     // Notifications
     NOTIFICATIONS: '/notifications',
-    NOTIFICATIONS_MARK_READ: '/notifications/mark-read'
+    NOTIFICATIONS_MARK_READ: '/notifications/mark-read',
+
+    // Performance
+    PERFORMANCE: '/performance',
+    PERFORMANCE_TEAM: '/performance/team',
+    PERFORMANCE_PLAYER: (playerId) => `/performance/player/${playerId}`
 };
 
 // Local Storage Keys

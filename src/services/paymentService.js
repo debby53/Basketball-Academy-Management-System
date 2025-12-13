@@ -25,3 +25,8 @@ export const deletePayment = async (id) => {
     const response = await apiClient.delete(API_ENDPOINTS.PAYMENT_BY_ID(id));
     return response.data;
 };
+
+export const getPaymentsByPlayer = async (playerId) => {
+    const response = await apiClient.get(API_ENDPOINTS.PAYMENT_BY_PLAYER(playerId));
+    return response.data;
+};
