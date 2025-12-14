@@ -32,7 +32,8 @@ FROM node:20 AS production
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm ci --only=production
+# Install a lightweight static server globally
+RUN npm install -g serve && npm ci --omit=dev
 
 COPY . .
 COPY --from=build /app/dist ./dist
@@ -41,4 +42,5 @@ EXPOSE 5173
 
 ENV NODE_ENV=production
 
-CMD ["npm", "run", "preview", "--", "--host"]
+# Serve the built static files on port 5173
+CMD ["serve", "-s", "dist", "-l", "5173"]

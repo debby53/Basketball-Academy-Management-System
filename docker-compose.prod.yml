@@ -12,6 +12,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:5000
       - ASPNETCORE_HTTP_PORTS=5000
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=bams_db;Username=postgres;Password=${DB_PASSWORD:-postgres}
     depends_on:
       - db
     restart: unless-stopped
