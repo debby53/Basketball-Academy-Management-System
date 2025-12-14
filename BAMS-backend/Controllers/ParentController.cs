@@ -89,6 +89,30 @@ namespace BAMS_backend.Controllers
             return NoContent();
         }
 
+        // GET: api/parents/5/children
+        [HttpGet("{id:int}/children")]
+        public async Task<ActionResult<IEnumerable<ChildRefDto>>> GetParentChildren(int id)
+        {
+            var parent = await _context.Parents
+                .Include(p => p.Children)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (parent == null) return NotFound();
+
+            var children = parent.Children?.Select(c => new ChildRefDto 
+            { 
+                Id = c.Id, 
+                FirstName = c.FirstName, 
+                LastName = c.LastName,
+                Email = c.Email,
+                Age = c.Age,
+                Team = c.Team,
+                Status = c.Status
+            }).ToList() ?? new List<ChildRefDto>();
+
+            return Ok(children);
+        }
+
         // DELETE: api/parents/5
         // Safe delete: unassign children (set ParentId = null) before removing parent
         [HttpDelete("{id:int}")]
@@ -172,5 +196,9 @@ namespace BAMS_backend.Controllers
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Email { get; set; }
+        public int? Age { get; set; }
+        public string Team { get; set; }
+        public string Status { get; set; }
     }
 }

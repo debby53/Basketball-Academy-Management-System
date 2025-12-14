@@ -15,6 +15,12 @@ namespace BAMS_backend.Data
         public DbSet<Coach> Coaches { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Communication> Communications { get; set; }
+        
+        // New entities for missing features
+        public DbSet<Attendance> Attendances { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
+        public DbSet<Performance> Performances { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         public ApiContext(DbContextOptions<ApiContext> options) : base(options)
         {

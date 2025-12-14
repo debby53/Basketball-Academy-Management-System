@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BAMS_backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/announcements")]
     [ApiController]
     public class CommunicationsController : ControllerBase
     {
@@ -64,6 +64,40 @@ namespace BAMS_backend.Controllers
             return CreatedAtAction(nameof(GetById), new { id = comm.Id }, result);
         }
 
+        // PUT: api/announcements/5
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateCommunicationDto dto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var comm = await _context.Communications.FindAsync(id);
+            if (comm == null) return NotFound();
+
+            comm.Subject = dto.Subject ?? comm.Subject;
+            comm.Body = dto.Body ?? comm.Body;
+            comm.RecipientType = dto.RecipientType ?? comm.RecipientType;
+            comm.Recipient = dto.Recipient ?? comm.Recipient;
+            comm.UpdatedAt = DateTime.UtcNow;
+
+            _context.Communications.Update(comm);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        // DELETE: api/announcements/5
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var comm = await _context.Communications.FindAsync(id);
+            if (comm == null) return NotFound();
+
+            _context.Communications.Remove(comm);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
         // Mapping helper
         private static CommunicationDto ToDto(Communication c) => new CommunicationDto
         {
@@ -100,5 +134,13 @@ namespace BAMS_backend.Controllers
         public string Status { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+    }
+
+    public class UpdateCommunicationDto
+    {
+        public string Subject { get; set; }
+        public string Body { get; set; }
+        public string RecipientType { get; set; }
+        public string Recipient { get; set; }
     }
 }
