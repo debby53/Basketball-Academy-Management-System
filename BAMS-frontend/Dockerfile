@@ -19,10 +19,16 @@ FROM node:20 AS build
 
 WORKDIR /app
 
+# Accept build arg for API URL
+ARG VITE_API_BASE_URL=http://localhost:5000
+
 COPY package*.json ./
 RUN npm ci
 
 COPY . .
+
+# Set the env var for Vite build
+ENV VITE_API_BASE_URL=${VITE_API_BASE_URL}
 
 RUN npm run build
 
