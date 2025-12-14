@@ -12,8 +12,8 @@ export const getAllAttendance = async (params = {}) => {
 /**
  * Get attendance by player ID
  */
-export const getAttendanceByPlayer = async (playerId) => {
-    const response = await apiClient.get(API_ENDPOINTS.ATTENDANCE_BY_PLAYER(playerId));
+export const getAttendanceByPlayer = async (playerId, params = {}) => {
+    const response = await apiClient.get(API_ENDPOINTS.ATTENDANCE_BY_PLAYER(playerId), { params });
     return response.data;
 };
 
