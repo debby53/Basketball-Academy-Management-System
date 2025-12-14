@@ -1,0 +1,154 @@
+USE [BasketballAcademyDB]
+GO
+
+/****** Object:  Table [dbo].[User]    Script Date: 11/30/2025 6:28:42 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[User](
+	[UserID] [int] IDENTITY(1,1) NOT NULL,
+	[FullName] [nvarchar](50) NOT NULL,
+	[Email] [nvarchar](50) NOT NULL,
+	[Phone] [nvarchar](50) NOT NULL,
+	[Password] [nvarchar](50) NOT NULL,
+	[Role] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_User_1] PRIMARY KEY CLUSTERED 
+(
+	[UserID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+USE [BasketballAcademyDB]
+GO
+
+/****** Object:  Table [dbo].[Performance]    Script Date: 11/30/2025 6:28:34 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Performance](
+	[PerformanceID] [int] IDENTITY(1,1) NOT NULL,
+	[UserID] [int] NOT NULL,
+	[Notes] [nvarchar](50) NOT NULL,
+	[Date] [datetime] NOT NULL,
+ CONSTRAINT [PK_Performance_1] PRIMARY KEY CLUSTERED 
+(
+	[PerformanceID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Performance]  WITH CHECK ADD  CONSTRAINT [FK_Performance_User] FOREIGN KEY([UserID])
+REFERENCES [dbo].[User] ([UserID])
+GO
+
+ALTER TABLE [dbo].[Performance] CHECK CONSTRAINT [FK_Performance_User]
+GO
+USE [BasketballAcademyDB]
+GO
+
+/****** Object:  Table [dbo].[Payments]    Script Date: 11/30/2025 6:28:24 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Payments](
+	[PaymentID] [int] IDENTITY(1,1) NOT NULL,
+	[UserID] [int] NOT NULL,
+	[AmountPaid] [float] NOT NULL,
+	[RemainigBalance] [float] NOT NULL,
+	[PaidDate] [datetime] NOT NULL,
+ CONSTRAINT [PK_Payments] PRIMARY KEY CLUSTERED 
+(
+	[PaymentID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Payments] ADD  CONSTRAINT [DF_Payments_PaidDate]  DEFAULT (getdate()) FOR [PaidDate]
+GO
+
+ALTER TABLE [dbo].[Payments]  WITH CHECK ADD  CONSTRAINT [FK_Payments_User] FOREIGN KEY([UserID])
+REFERENCES [dbo].[User] ([UserID])
+GO
+
+ALTER TABLE [dbo].[Payments] CHECK CONSTRAINT [FK_Payments_User]
+GO
+USE [BasketballAcademyDB]
+GO
+
+/****** Object:  Table [dbo].[Messages]    Script Date: 11/30/2025 6:28:14 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Messages](
+	[MessageID] [nvarchar](50) NOT NULL,
+	[Subject] [nvarchar](50) NOT NULL,
+	[Content] [nvarchar](50) NOT NULL,
+	[SentDate] [datetime] NOT NULL,
+	[UserID] [int] IDENTITY(1,1) NOT NULL,
+ CONSTRAINT [PK_Messages_1] PRIMARY KEY CLUSTERED 
+(
+	[MessageID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Messages] ADD  CONSTRAINT [DF_Messages_SentDate_1]  DEFAULT (getdate()) FOR [SentDate]
+GO
+
+ALTER TABLE [dbo].[Messages]  WITH CHECK ADD  CONSTRAINT [FK_Messages_User] FOREIGN KEY([UserID])
+REFERENCES [dbo].[User] ([UserID])
+GO
+
+ALTER TABLE [dbo].[Messages] CHECK CONSTRAINT [FK_Messages_User]
+GO
+
+USE [BasketballAcademyDB]
+GO
+
+/****** Object:  Table [dbo].[Attendance]    Script Date: 11/30/2025 6:28:05 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Attendance](
+	[AttendanceID] [int] IDENTITY(1,1) NOT NULL,
+	[UserID] [int] NOT NULL,
+	[Date] [datetime] NOT NULL,
+	[Status] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_Attendance_1] PRIMARY KEY CLUSTERED 
+(
+	[AttendanceID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Attendance]  WITH CHECK ADD  CONSTRAINT [FK_Attendance_User] FOREIGN KEY([UserID])
+REFERENCES [dbo].[User] ([UserID])
+GO
+
+ALTER TABLE [dbo].[Attendance] CHECK CONSTRAINT [FK_Attendance_User]
+GO
+
+
+
+
+
+
+
+
+
+
